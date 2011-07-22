@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "demo\demo.vcproj", "{0AF7F85D-BEDC-4025-931A-D9ED31D2064B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B} = {3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netstring", "code\netstring.vcproj", "{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AF7F85D-BEDC-4025-931A-D9ED31D2064B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0AF7F85D-BEDC-4025-931A-D9ED31D2064B}.Debug|Win32.Build.0 = Debug|Win32
+		{0AF7F85D-BEDC-4025-931A-D9ED31D2064B}.Release|Win32.ActiveCfg = Release|Win32
+		{0AF7F85D-BEDC-4025-931A-D9ED31D2064B}.Release|Win32.Build.0 = Release|Win32
+		{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}.Debug|Win32.Build.0 = Debug|Win32
+		{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}.Release|Win32.ActiveCfg = Release|Win32
+		{3F6B6753-E238-4CBA-B3B3-D2899C2AD36B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

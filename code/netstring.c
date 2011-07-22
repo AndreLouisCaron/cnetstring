@@ -11,7 +11,7 @@
  * @brief Parser for netstrings (http://cr.yp.to/proto/netstrings.txt).
  */
 
-#include "cnetstring.h"
+#include "netstring.h"
 
 #include <ctype.h>
 
