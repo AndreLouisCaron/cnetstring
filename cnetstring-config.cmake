@@ -4,14 +4,14 @@
 if(NOT DEFINED cnetstring_FOUND)
 
   # Locate library headers.
-  find_path(cnetstring_include_dir
+  find_path(cnetstring_include_dirs
     NAMES netstring.h
     PATHS ${cnetstring_DIR}/code
   )
 
   # Export library targets.
   set(cnetstring_libraries
-    cnetstring
+    netstring
     CACHE INTERNAL "cnetstring library" FORCE
   )
 
