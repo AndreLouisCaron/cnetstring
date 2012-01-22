@@ -19,9 +19,9 @@
 
 namespace netstring {
 
-        /*!
-         * @brief Streaming parser for netstrings (prefixed binary strings).
-         */
+    /*!
+     * @brief Streaming parser for netstrings (prefixed binary strings).
+     */
     class Parser
     {
         /* data. */
@@ -32,51 +32,51 @@ namespace netstring {
 
         /* construction. */
     public:
-            /*!
-             * @brief Create a parser with a default maximum length for strings.
-             *
-             * @note The default maximum length is through a macro defined by
-             *  the build script.  When unspecified in the build script, a
-             *  rather high (but unspecified) limit is used.
-             */
+        /*!
+         * @brief Create a parser with a default maximum length for strings.
+         *
+         * @note The default maximum length is through a macro defined by
+         *  the build script.  When unspecified in the build script, a
+         *  rather high (but unspecified) limit is used.
+         */
         Parser ();
 
-            /*!
-             * @brief Create a parser that will reject long strings.
-             * @param maximum_length Maximum length of strings to parse.  May be
-             *  set to 0 to accept strings of unlimited size.
-             */
+        /*!
+         * @brief Create a parser that will reject long strings.
+         * @param maximum_length Maximum length of strings to parse.  May be
+         *  set to 0 to accept strings of unlimited size.
+         */
         explicit Parser ( size_t maximum_length );
 
         /* methods. */
     public:
-            /*!
-             * @brief Prepare to start parsing a new string.
-             *
-             * @note This method clears the string contents but does not release
-             *  the allocated buffer.  Re-using parser instances allows reduced
-             *  memory allocation in long running processes.
-             */
+        /*!
+         * @brief Prepare to start parsing a new string.
+         *
+         * @note This method clears the string contents but does not release
+         *  the allocated buffer.  Re-using parser instances allows reduced
+         *  memory allocation in long running processes.
+         */
         void reset ();
 
-            /*!
-             * @brief Feed the parser some data.
-             * @param data Start of buffer.
-             * @param size Size of valid data in the buffer (in bytes).
-             * @param return Number of bytes processed.
-             * @throws std::exception The parser reported an error with the data
-             *  provided as the netstring.
-             *
-             * This method allows to parse the data as it is made available.
-             * This is an important property for high-performance networking
-             * applications.
-             */
+        /*!
+         * @brief Feed the parser some data.
+         * @param data Start of buffer.
+         * @param size Size of valid data in the buffer (in bytes).
+         * @param return Number of bytes processed.
+         * @throws std::exception The parser reported an error with the data
+         *  provided as the netstring.
+         *
+         * This method allows to parse the data as it is made available.
+         * This is an important property for high-performance networking
+         * applications.
+         */
         size_t feed ( const char * data, size_t size );
 
-            /*!
-             * @brief Access the parsed netstring contents.
-             * @return A buffer containing the character data.
-             */
+        /*!
+         * @brief Access the parsed netstring contents.
+         * @return A buffer containing the character data.
+         */
         const std::string& data () const;
 
         /* class methods. */

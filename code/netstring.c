@@ -6,7 +6,7 @@
 ** "http://www.opensource.org/licenses/mit". */
 
 /*!
- * @file netstring.cpp
+ * @file netstring.c
  * @author Andre Caron <andre.l.caron@gmail.com>
  * @brief Parser for netstrings (http://cr.yp.to/proto/netstrings.txt).
  */
