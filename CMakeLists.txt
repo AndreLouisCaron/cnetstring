@@ -39,7 +39,7 @@ if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
   configure_file(
     ${CMAKE_SOURCE_DIR}/help/Doxyfile
     ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
-  add_api_documentation(doc)
+  add_api_documentation(help)
 
   # Resolve include directives as if installed on the system.
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/code)
