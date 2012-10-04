@@ -17,7 +17,7 @@
 
   /* Allow definition in build script. */
 #ifndef NETSTRING_MAXIMUM_LENGTH
-#   define NETSTRING_MAXIMUM_LENGTH (1*1024)
+#   define NETSTRING_MAXIMUM_LENGTH 0
 #endif
 
 static const char * netstring_error_messages[] =
@@ -48,7 +48,9 @@ void netstring_setup
     ( struct netstring_limits * limits, struct netstring_parser * parser )
 {
         /* Default limits. */
-    limits->maximum_length = NETSTRING_MAXIMUM_LENGTH;
+    if (limits->maximum_length == 0) {
+        limits->maximum_length = NETSTRING_MAXIMUM_LENGTH;
+    }
         /* Default parser state. */
     parser->state = netstring_parser_size;
     parser->error = netstring_error_ok;
