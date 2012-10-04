@@ -16,8 +16,8 @@
 #include <ctype.h>
 
   /* Allow definition in build script. */
-#ifndef NETSTRING_MAXIMUM_LENGTH
-#   define NETSTRING_MAXIMUM_LENGTH 0
+#ifndef NETSTRING_DEFAULT_MAX_SIZE
+#   define NETSTRING_DEFAULT_MAX_SIZE 0
 #endif
 
 static const char * netstring_error_messages[] =
@@ -35,8 +35,8 @@ static size_t netstring_min ( size_t a, size_t b )
 static int netstring_overflow
     ( const struct netstring_limits * limits, size_t parsed )
 {
-    return (limits->maximum_length != 0)
-        && (parsed > limits->maximum_length);
+    return (limits->max_size != 0)
+        && (parsed > limits->max_size);
 }
 
 const char * netstring_error_message ( enum netstring_parser_error error )
@@ -48,8 +48,8 @@ void netstring_setup
     ( struct netstring_limits * limits, struct netstring_parser * parser )
 {
         /* Default limits. */
-    if (limits->maximum_length == 0) {
-        limits->maximum_length = NETSTRING_MAXIMUM_LENGTH;
+    if (limits->max_size == 0) {
+        limits->max_size = NETSTRING_DEFAULT_MAX_SIZE;
     }
         /* Default parser state. */
     parser->state = netstring_parser_size;

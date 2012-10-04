@@ -43,10 +43,10 @@ namespace netstring {
 
         /*!
          * @brief Create a parser that will reject long strings.
-         * @param maximum_length Maximum length of strings to parse.  May be
+         * @param max_size Maximum length of strings to parse.  May be
          *  set to 0 to accept strings of unlimited size.
          */
-        explicit Parser ( size_t maximum_length );
+        explicit Parser ( size_t max_size );
 
         /* methods. */
     public:

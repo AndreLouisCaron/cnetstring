@@ -1,4 +1,5 @@
 #include "netstring.hpp"
+#include <string.h>
 
 // Copyright(c) Andre Caron <andre.l.caron@gmail.com>, 2011
 //
@@ -11,19 +12,21 @@ namespace netstring {
 
     Parser::Parser ()
     {
+        ::memset(&myLimits, 0, sizeof(myLimits));
         ::netstring_setup(&myLimits, &myParser);
         myParser.object = this;
         myParser.accept = &Parser::accept;
         myParser.finish = &Parser::finish;
     }
 
-    Parser::Parser ( size_t maximum_length )
+    Parser::Parser ( size_t max_size )
     {
+        ::memset(&myLimits, 0, sizeof(myLimits));
+        myLimits.max_size = max_size;
         ::netstring_setup(&myLimits, &myParser);
         myParser.object = this;
         myParser.accept = &Parser::accept;
         myParser.finish = &Parser::finish;
-        myLimits.maximum_length = maximum_length;
     }
 
     void Parser::reset ()

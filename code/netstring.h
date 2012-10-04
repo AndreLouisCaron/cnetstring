@@ -65,7 +65,7 @@ struct netstring_limits
      *
      * @note This limit excludes the two characters used as delimiters.
      */
-    size_t maximum_length;
+    size_t max_size;
 };
 
 /*!
