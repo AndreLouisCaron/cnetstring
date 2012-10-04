@@ -19,7 +19,7 @@ if(NOT DEFINED cnetstring_FOUND)
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(
     cnetstring DEFAULT_MSG
-    cnetstring_include_dir
+    cnetstring_include_dirs
     cnetstring_libraries
   )
 
