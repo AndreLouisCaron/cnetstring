@@ -1,6 +1,6 @@
-=====================================================
-  `cnetstring` --- Streaming netstring parser for C
-=====================================================
+====================================================
+  ``cnetstring``: Streaming netstring parser for C
+====================================================
 :authors:
    André Caron
 :contact: andre.l.caron@gmail.com
@@ -46,8 +46,8 @@ Dependencies are:
 * CMake_
 * Doxygen_
 * A C++ compiler toolchain:
-  * Microsoft Visual Studio
-  * ``g++`` and ``make``
+   * Microsoft Visual Studio
+   * ``g++`` and ``make``
 
 .. _Git: http://git-scm.com/
 .. _CMake: http://www.cmake.org/
@@ -56,7 +56,7 @@ Dependencies are:
 Standalone build
 ----------------
 
-#. Get the source code
+#. Get the source code.
 
    ::
 
@@ -72,7 +72,7 @@ Standalone build
 
       > git checkout v0.1
 
-#. Generate the build scripts
+#. Generate the build scripts.
 
    ::
 
@@ -80,19 +80,19 @@ Standalone build
       > cd work
       > cmake -G "NMake Makefiles" ..
 
-#. Build the source code
+#. Build the source code.
 
    ::
 
       > nmake
 
-#. Run the test suite
+#. Run the test suite.
 
    ::
 
       > nmake /A test
 
-#. Build the API documentation
+#. Build the API documentation.
 
    ::
 
@@ -103,15 +103,14 @@ Standalone build
 Embedded build
 --------------
 
-#. Register as a Git sub-module
+#. Register as a Git sub-module.
 
    ::
 
       > cd myproject
       > git submodule add git://github.com/AndreLouisCaron/cnetstring.git libs/cnetstring
 
-   Feel free to check out a specific version
-   Feel free to check out a specific version
+   Feel free to check out a specific version.
 
    ::
 
@@ -131,7 +130,7 @@ Embedded build
         ${CMAKE_SOURCE_DIR}/libs/cnetstring
       )
 
-#. Make sure your project can ``#include <netstring.h>``
+#. Make sure your CMake project can ``#include <netstring.h>``.
 
    ::
 
@@ -140,7 +139,7 @@ Embedded build
       )
 
 
-#. Link against the ``netstring`` library
+#. Link against the ``netstring`` library.
 
    ::
 
