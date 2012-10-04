@@ -36,7 +36,7 @@ namespace netstring {
     {
         const size_t used =
             ::netstring_consume(&myLimits, &myParser, data, size);
-        if ( myParser.state == netstring_parser_fail )
+        if ( myParser.error != netstring_error_ok )
         {
             const char * message =
                 ::netstring_error_message(myParser.error);

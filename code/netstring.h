@@ -27,7 +27,7 @@ enum netstring_parser_error
 {
     netstring_error_ok = 0,
     netstring_error_overflow,
-    netstring_error_nondigit,
+    netstring_error_syntax,
 };
 
 /*!
@@ -48,11 +48,6 @@ enum netstring_parser_state
      * @brief Length is known.  Check the parser's @a length field.
      */
     netstring_parser_data,
-
-    /*!
-     * @brief An error was detected.  Check the parser's @a error field.
-     */
-    netstring_parser_fail,
 
     /*!
      * @brief All data reported.
@@ -109,8 +104,8 @@ struct netstring_parser
     /*! @public
      * @brief Last error reported by the parser.
      *
-     * @warning This field should only be interpreted if @c state is set to
-     *  @c netstring_parser_fail.  Its value is undefined at all other times.
+     *
+     * You should check this after each call to @c scgi_consume().
      */
     enum netstring_parser_error error;
 
@@ -173,9 +168,10 @@ void netstring_clear ( struct netstring_parser * parser );
  *  @a size.  However, the parser may choose to interrupt parser early or stop
  *  processing data because of an error.
  *
- * You should @e always check the parser state after a call to this method.
- * In particular, all data may be consumed before an error is reported, so
- * a return value equal to @a size is not a reliable indicator of success.
+ * You should @e always check the parser's @c error field after a call to this
+ * method.  In particular, all data may be consumed before an error is
+ * reported, so a return value equal to @a size is not a reliable indicator of
+ * success.
  */
 size_t netstring_consume ( const struct netstring_limits * limits,
     struct netstring_parser * parser, const char * data, size_t size );

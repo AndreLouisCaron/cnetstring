@@ -93,9 +93,8 @@ size_t netstring_consume ( const struct netstring_limits * limits,
               /* Make sure we get a digit. */
             if ( !isdigit(byte) )
             {
-                parser->error = netstring_error_nondigit;
-                parser->state = netstring_parser_fail;
-                break;
+                parser->error = netstring_error_syntax;
+                return (used);
             }
               /* Update string length. */
             length *= 10;
@@ -105,8 +104,7 @@ size_t netstring_consume ( const struct netstring_limits * limits,
             {
                 ++used;
                 parser->error = netstring_error_overflow;
-                parser->state = netstring_parser_fail;
-                break;
+                return (used);
             }
         }
     }
@@ -121,8 +119,12 @@ size_t netstring_consume ( const struct netstring_limits * limits,
         parsed += count;
         used   += count;
           /* Check if we've finished parsing. */
-        if ((parsed == length) && (data[used] == ','))
+        if (parsed == length)
         {
+            if (data[used] != ',') {
+                parser->error = netstring_error_syntax;
+                return (used);
+            }
             ++used;
             parser->state = netstring_parser_done;
             parser->finish(parser);
