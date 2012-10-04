@@ -42,10 +42,11 @@ Requirements
 
 Dependencies are:
 
-* Git_
-* CMake_
-* Doxygen_
-* A C++ compiler toolchain:
+#. Git_
+#. CMake_
+#. Doxygen_
+#. A C++ compiler toolchain:
+
    * Microsoft Visual Studio
    * ``g++`` and ``make``
 
