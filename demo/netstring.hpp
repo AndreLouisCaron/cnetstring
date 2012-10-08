@@ -20,6 +20,28 @@
 namespace netstring {
 
     /*!
+     * @brief Raised on SCGI request parser errors.
+     */
+    class Error
+    {
+        /* data. */
+    private:
+        ::netstring_parser_error myCode;
+
+        /* construction. */
+    public:
+        Error (::netstring_parser_error code)
+            : myCode(code)
+        {}
+
+        /* overrides. */
+    public:
+        virtual const char * what () const throw () {
+            return (::netstring_error_message(myCode));
+        }
+    };
+
+    /*!
      * @brief Streaming parser for netstrings (prefixed binary strings).
      */
     class Parser
@@ -64,8 +86,8 @@ namespace netstring {
          * @param data Start of buffer.
          * @param size Size of valid data in the buffer (in bytes).
          * @param return Number of bytes processed.
-         * @throws std::exception The parser reported an error with the data
-         *  provided as the netstring.
+         * @throws Error The parser reported an error with the data provided as
+         *  the netstring.
          *
          * This method allows to parse the data as it is made available.
          * This is an important property for high-performance networking

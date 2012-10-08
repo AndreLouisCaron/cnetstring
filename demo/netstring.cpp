@@ -39,11 +39,8 @@ namespace netstring {
     {
         const size_t used =
             ::netstring_consume(&myLimits, &myParser, data, size);
-        if ( myParser.error != netstring_error_ok )
-        {
-            const char * message =
-                ::netstring_error_message(myParser.error);
-            throw (std::exception(message));
+        if ( myParser.error != netstring_error_ok ) {
+            throw (Error(myParser.error));
         }
         return (used);
     }
