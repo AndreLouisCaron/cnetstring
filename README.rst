@@ -81,6 +81,23 @@ Standalone build
       > cd work
       > cmake -G "NMake Makefiles" ..
 
+   The following CMake options are supported:
+
+   #. ``CNETSTRING_BUILD_CXX``: build C++ targets.
+   #. ``CNETSTRING_BUILD_DEMOS``: build demo programs.
+   #. ``CNETSTRING_BUILD_TESTS``: build test programs.
+
+   All options are set to ``ON`` by default in the standalone builds.  Options
+   for demos and tests are ignored and forced to ``OFF`` when build as a
+   dependency.
+
+   To change these settings, use the CMake ``-D`` command line option.  For
+   example, to skip compilation of the demo programs, use this command:
+
+   ::
+
+      > cmake -G "NMake Makefiles" .. -DCNETSTRING_BUILD_DEMOS=OFF
+
 #. Build the source code.
 
    ::
@@ -93,6 +110,9 @@ Standalone build
 
       > nmake /A test
 
+   If the ``CNETSTRING_BUILD_TESTS`` option was set to ``OFF``, this will not
+   run any tests.
+
 #. Build the API documentation.
 
    ::
@@ -100,6 +120,9 @@ Standalone build
       > nmake help
 
    Open the HTML documentation in ``help/html/index.html``.
+
+   If Doxygen is not available, this target is not registered so you cannot
+   build the documentation.
 
 Embedded build
 --------------

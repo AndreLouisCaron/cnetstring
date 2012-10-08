@@ -6,6 +6,9 @@ cmake_minimum_required(VERSION 2.6)
 
 project(cnetstring)
 
+option(CNETSTRING_BUILD_DEMOS "Build demo programs." ON)
+option(CNETSTRING_BUILD_TESTS "Build test programs." ON)
+
 # Compile API documentation from source code.
 function(add_api_documentation target)
   if(DOXYGEN_EXECUTABLE)
@@ -45,9 +48,13 @@ if(${PROJECT_NAME} STREQUAL ${CMAKE_PROJECT_NAME})
   include_directories(${CMAKE_CURRENT_SOURCE_DIR}/code)
 
   # Build demo projects.
-  add_subdirectory(demo)
+  if(CNETSTRING_BUILD_DEMOS)
+    add_subdirectory(demo)
+  endif()
 
   # Build tests.
-  add_subdirectory(test)
+  if(CNETSTRING_BUILD_TESTS)
+    add_subdirectory(test)
+  endif()
 
 endif()
