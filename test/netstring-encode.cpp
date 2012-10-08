@@ -12,6 +12,7 @@
  */
 
 #include "netstring.h"
+#include <cstdlib>
 #include <exception>
 #include <fstream>
 #include <iostream>
