@@ -6,9 +6,9 @@ set(sources
   demo.cpp
 )
 add_executable(
-  demo
+  cnetstring-demo
   ${sources}
   ${headers}
 )
-target_link_libraries(demo netstring)
-add_dependencies(demo netstring)
+target_link_libraries(cnetstring-demo netstring)
+add_dependencies(cnetstring-demo netstring)
