@@ -1,13 +1,27 @@
-/* Copyright(c) Andre Caron <andre.l.caron@gmail.com>, 2011
+/* Copyright (c) 2011-2012, Andre Caron (andre.l.caron@gmail.com)
 **
-** This document is covered by the an Open Source Initiative approved license. A
-** copy of the license should have been provided alongside this software package
-** (see "LICENSE.txt"). If not, terms of the license are available online at
-** "http://www.opensource.org/licenses/mit". */
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+*/
 
 /*!
- * @file netstring.c
- * @author Andre Caron <andre.l.caron@gmail.com>
+ * @internal
+ * @file
  * @brief Parser for netstrings (http://cr.yp.to/proto/netstrings.txt).
  */
 
@@ -27,25 +41,25 @@ static const char * netstring_error_messages[] =
     "expected digit",
 };
 
-static size_t netstring_min ( size_t a, size_t b )
+static size_t netstring_min (size_t a, size_t b)
 {
     return ((a < b)? a : b);
 }
 
 static int netstring_overflow
-    ( const struct netstring_limits * limits, size_t parsed )
+    (const struct netstring_limits * limits, size_t parsed)
 {
     return (limits->max_size != 0)
         && (parsed > limits->max_size);
 }
 
-const char * netstring_error_message ( enum netstring_parser_error error )
+const char * netstring_error_message (enum netstring_parser_error error)
 {
     return (netstring_error_messages[error]);
 }
 
 void netstring_setup
-    ( struct netstring_limits * limits, struct netstring_parser * parser )
+    (struct netstring_limits * limits, struct netstring_parser * parser)
 {
         /* Default limits. */
     if (limits->max_size == 0) {
@@ -60,7 +74,7 @@ void netstring_setup
     parser->object = 0;
 }
 
-void netstring_clear ( struct netstring_parser * parser )
+void netstring_clear (struct netstring_parser * parser)
 {
     parser->state = netstring_parser_size;
     parser->error = netstring_error_ok;
@@ -68,8 +82,8 @@ void netstring_clear ( struct netstring_parser * parser )
     parser->length = 0;
 }
 
-size_t netstring_consume ( const struct netstring_limits * limits,
-    struct netstring_parser * parser, const char * data, size_t size )
+size_t netstring_consume (const struct netstring_limits * limits,
+    struct netstring_parser * parser, const char * data, size_t size)
 {
     int digit = 0;
     char byte = 0;
@@ -78,20 +92,20 @@ size_t netstring_consume ( const struct netstring_limits * limits,
     size_t length = parser->length;
     size_t count = 0;
       /* String length appears as a prefix. */
-    if ( parser->state == netstring_parser_size )
+    if (parser->state == netstring_parser_size)
     {
-        for ( ; (used < size); ++used )
+        for (; (used < size); ++used)
         {
             byte = data[used];
               /* Check for length terminator. */
-            if ( byte == ':' )
+            if (byte == ':')
             {
                 ++used;
                 parser->state = netstring_parser_data;
                 break;
             }
               /* Make sure we get a digit. */
-            if ( !isdigit(byte) )
+            if (!isdigit(byte))
             {
                 parser->error = netstring_error_syntax;
                 return (used);
@@ -109,7 +123,7 @@ size_t netstring_consume ( const struct netstring_limits * limits,
         }
     }
       /* String data. */
-    if ( parser->state == netstring_parser_data )
+    if (parser->state == netstring_parser_data)
     {
           /* Look as far ahead as possible. */
         count = netstring_min(length-parsed, size-used);

@@ -1,16 +1,29 @@
 #ifndef _netstring_h__
 #define _netstring_h__
 
-/* Copyright(c) Andre Caron <andre.l.caron@gmail.com>, 2011
+/* Copyright (c) 2011-2012, Andre Caron (andre.l.caron@gmail.com)
 **
-** This document is covered by the an Open Source Initiative approved license. A
-** copy of the license should have been provided alongside this software package
-** (see "LICENSE.txt"). If not, terms of the license are available online at
-** "http://www.opensource.org/licenses/mit". */
+** Permission is hereby granted, free of charge, to any person obtaining a copy
+** of this software and associated documentation files (the "Software"), to deal
+** in the Software without restriction, including without limitation the rights
+** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+** copies of the Software, and to permit persons to whom the Software is
+** furnished to do so, subject to the following conditions:
+**
+** The above copyright notice and this permission notice shall be included in
+** all copies or substantial portions of the Software.
+**
+** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+** THE SOFTWARE.
+*/
 
 /*!
- * @file netstring.h
- * @author Andre Caron <andre.l.caron@gmail.com>
+ * @file
  * @brief Parser for netstrings (http://cr.yp.to/proto/netstrings.txt).
  */
 
@@ -20,9 +33,11 @@
 extern "C" {
 #endif
 
-  /*!
-   * @brief Enumeration of error states the parser may report.
-   */
+/*!
+ * @brief Enumeration of error states the parser may report.
+ *
+ * @see netstring_error_message
+ */
 enum netstring_parser_error
 {
     netstring_error_ok = 0,
@@ -32,25 +47,32 @@ enum netstring_parser_error
 
 /*!
  * @brief Gets a human-readable description of the error.
+ *
+ * @see netstring_parser_error
  */
-const char * netstring_error_message ( enum netstring_parser_error error );
+const char * netstring_error_message (enum netstring_parser_error error);
 
 /*!
+ * @internal
  * @brief Enumeration of parser states.
  */
 enum netstring_parser_state
 {
-    /*! @private
+    /*!
+     * @private
+     * @brief Parsing the length prefix.
      */
     netstring_parser_size,
 
     /*!
-     * @brief Length is known.  Check the parser's @a length field.
+     * @private
+     * @brief Length is known, streaming the string contents.
      */
     netstring_parser_data,
 
     /*!
-     * @brief All data reported.
+     * @private
+     * @brief All data reported, no more callbacks will be invoked.
      */
     netstring_parser_done,
 };
@@ -77,16 +99,22 @@ struct netstring_limits
  */
 struct netstring_parser
 {
-    /*! @private
+    /*!
+     * @private
+     * @brief Amount of data parsed so far.
      */
     size_t parsed;
 
-    /*! @public
+    /*!
+     * @public
      * @brief Length of the string, in bytes.
+     *
+     * This field is read-only for applications.
      */
     size_t length;
 
-    /*! @public
+    /*!
+     * @public
      * @brief Current state of the parser.
      *
      * Client code should check the state after each call to
@@ -101,15 +129,16 @@ struct netstring_parser
      */
     enum netstring_parser_state state;
 
-    /*! @public
+    /*!
+     * @public
      * @brief Last error reported by the parser.
-     *
      *
      * You should check this after each call to @c scgi_consume().
      */
     enum netstring_parser_error error;
 
-    /*! @public
+    /*!
+     * @public
      * @brief Extra field for client code's use.
      *
      * The contents of this field are not interpreted in any way by the
@@ -120,6 +149,7 @@ struct netstring_parser
     void * object;
 
     /*!
+     * @public
      * @brief Callback supplying data for string contents.
      * @param parser The netstring parser itself.  Useful for checking the
      *  parser state (amount of parsed data, etc.) or accessing the @c object
@@ -135,6 +165,7 @@ struct netstring_parser
     void (*accept)(struct netstring_parser*, const char*, size_t);
 
     /*!
+     * @public
      * @brief Callback indicating the end of the netstring.
      *
      * This callback is invoked once, when the last chunk of data has been
@@ -149,7 +180,7 @@ struct netstring_parser
  * @param parser Parser state, to be cleared and initialized.
  */
 void netstring_setup
-    ( struct netstring_limits * limits, struct netstring_parser * parser );
+    (struct netstring_limits * limits, struct netstring_parser * parser);
 
 /*!
  * @brief Clear errors and reset the parser state.
@@ -158,7 +189,7 @@ void netstring_setup
  * call it to re-use any parsing context, such as allocated buffers for
  * string contents.
  */
-void netstring_clear ( struct netstring_parser * parser );
+void netstring_clear (struct netstring_parser * parser);
 
 /*!
  * @brief Feed data to the parser.
@@ -173,8 +204,8 @@ void netstring_clear ( struct netstring_parser * parser );
  * reported, so a return value equal to @a size is not a reliable indicator of
  * success.
  */
-size_t netstring_consume ( const struct netstring_limits * limits,
-    struct netstring_parser * parser, const char * data, size_t size );
+size_t netstring_consume (const struct netstring_limits * limits,
+    struct netstring_parser * parser, const char * data, size_t size);
 
 #ifdef __cplusplus
 }

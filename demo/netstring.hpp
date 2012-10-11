@@ -1,16 +1,28 @@
 #ifndef _netstring_hpp__
 #define _netstring_hpp__
 
-// Copyright(c) Andre Caron <andre.l.caron@gmail.com>, 2011
+// Copyright (c) 2011-2012, Andre Caron (andre.l.caron@gmail.com)
 //
-// This document is covered by the an Open Source Initiative approved license. A
-// copy of the license should have been provided alongside this software package
-// (see "LICENSE.txt"). If not, terms of the license are available online at
-// "http://www.opensource.org/licenses/mit".
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 /*!
- * @file netstring.hpp
- * @author Andre Caron <andre.l.caron@gmail.com>
+ * @file
  * @brief Parser for netstrings (http://cr.yp.to/proto/netstrings.txt).
  */
 
@@ -68,7 +80,7 @@ namespace netstring {
          * @param max_size Maximum length of strings to parse.  May be
          *  set to 0 to accept strings of unlimited size.
          */
-        explicit Parser ( size_t max_size );
+        explicit Parser (size_t max_size);
 
         /* methods. */
     public:
@@ -93,7 +105,7 @@ namespace netstring {
          * This is an important property for high-performance networking
          * applications.
          */
-        size_t feed ( const char * data, size_t size );
+        size_t feed (const char * data, size_t size);
 
         /*!
          * @brief Access the parsed netstring contents.
@@ -104,8 +116,8 @@ namespace netstring {
         /* class methods. */
     private:
         static void accept
-            ( ::netstring_parser* parser, const char * data, size_t size );
-        static void finish ( ::netstring_parser* parser );
+            (::netstring_parser* parser, const char * data, size_t size);
+        static void finish (::netstring_parser* parser);
     };
 
 }
